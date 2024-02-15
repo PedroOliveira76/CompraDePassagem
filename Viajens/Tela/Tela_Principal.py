@@ -1,5 +1,4 @@
-from Viajens.Classes.Lista_voos import Voos_lista
-
+from Viajens.Classes.Lista_voos import VoosOperações
 
 class OpcaoInvalidaError(Exception):
     pass
@@ -21,7 +20,7 @@ class Menu:
 
                 match opcao:
                     case 1:
-                        resultado = Voos_lista.escolherVoo()
+                        resultado = VoosOperações.escolherVoo()
 
                         print(resultado)
                         pass
@@ -30,7 +29,8 @@ class Menu:
                     case 3:
                         pass
                     case 4:
-                        pass
+                        return f'Programa Finalizado'
+
             except ValueError as error:
                 print(f'Erro: {error}\n Escolha um número!')
             except OpcaoInvalidaError as error:
