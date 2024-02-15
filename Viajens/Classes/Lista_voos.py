@@ -23,7 +23,7 @@ class Voos_lista:
                     while True:
                         try:
                             print('-' * 15, 'Qual vai ser a forma de pagamento?', '-' * 15)
-                            opcao_pagamento = int(input(f'1 - Cartão\n'
+                            opcaoPagamento = int(input(f'1 - Cartão\n'
                                                         f'2 - Pix\n'
                                                         f'3 - Deposito\n'
                                                         f'Opção: '))
