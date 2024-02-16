@@ -4,6 +4,8 @@ import time
 class VoosOperações:
     @staticmethod
     def escolherVoo():
+        #dados das viajens
+
         flights_data = [
             {"country": "Estados Unidos", "departure_time": "2024-02-15 08:00", "Valor": "$500"},
             {"country": "Reino Unido", "departure_time": "2024-02-15 09:30", "Valor": "$1000"},
@@ -14,17 +16,22 @@ class VoosOperações:
 
         ]
         print('-' * 15, 'Escolha um voo', '-' * 15)
+
         while True:
             try:
                 c = 1
+                # Mostra em ordem os dados dos voos
                 for flight in flights_data:
                     print(f' {c} - {flight["country"]} - {flight["departure_time"]} - {flight["Valor"]}')
                     c+=1
 
                 opcao = int(input("Escolha uma opção: "))
 
+                # Faz uma verificação para saber se i valor selecionado está dentre as opções de voo acima
+                # Caso contrário ele mostra uma mensagem de error e inicia o loop novamente
                 if 1 <= opcao <= len(flights_data):
                     while True:
+                        # Lógica para escolher a forma de pagamento, depois ele chama a função formaPagamento, passando os dados necessários
                         try:
                             print('-' * 15, 'Qual vai ser a forma de pagamento?', '-' * 15)
                             opcao_pagamento = int(input(f'1 - Cartão\n'
@@ -32,14 +39,24 @@ class VoosOperações:
                                                         f'Opção: '))
                             print('-' * 30)
 
-                            textoResultado = VoosOperações.formaPagamento(opcao_pagamento, flights_data[opcao - 1]["Valor"])
-                            return textoResultado # Retorna os dados do voo selecionado
+                            # As informações selecionadas pelo usuário são armazenadas no dados_pagamento de acordo com o retorno
+                            # da função formaPagamento()
+                            dados_pagamento = VoosOperações.formaPagamento(opcao_pagamento, flights_data[opcao - 1]["Valor"])
+
+                            lista_dados = (flights_data[opcao - 1]["country"],
+                                                   flights_data[opcao - 1]["departure_time"],
+                                                   flights_data[opcao - 1]["Valor"])
+
+                            print('-' * 30)
+                            return lista_dados, dados_pagamento # Retorna os dados do voo selecionado
 
                         except ValueError as error:
                             print(f'Error: {error}'
                                   f'Escolha um número!')
+
                 else:
                     print("Opção inválida. Escolha um número entre 1 e", len(flights_data))
+                    print('>' * 30)
 
             except ValueError as error:
                 print(f'Error: {error} \n'
@@ -49,6 +66,7 @@ class VoosOperações:
     def formaPagamento(opcao_pagamento, flight_valor):
         while True:
             try:
+                # Tratamento de dados de acordo com a opção escolhida pelo usuário
                 match opcao_pagamento:
                     case 1:
                         print('-' * 15, 'Dados do Cartão', '-' * 15)
@@ -56,24 +74,34 @@ class VoosOperações:
                         numero_cartao = int(input("Número do cartão: "))
                         nome_titular = str(input("Nome do titular: "))
                         textoResultado = (f'Compra no valor de {flight_valor} no cartão - "{numero_cartao}"'
-                                          f'foi aprovada no nome do proprietário: {nome_titular}')
-                        return textoResultado
-                        pass
+                                          f' foi aprovada no nome do proprietário: {nome_titular}')
+                        print(textoResultado)
+                        return nome_titular, opcao_pagamento
 
                     case 2:
                         sequencia_aleatoria = ''.join(
                             random.choice(string.ascii_letters + string.digits + string.punctuation) for _ in range(10))
 
                         print(f'Chave aleatória para o pagamento: {sequencia_aleatoria}')
-
-                        for _ in range(8):
+                        nome_titular_pix = str(input('Digite seu nome: '))
+                        # Essa parte do código foi feita apenas para simular o processo do pix
+                        for _ in range(3):
                             print(".", end="", flush=True)  # Imprime um ponto sem nova linha
                             time.sleep(1)  # Pausa por 1 segundo
                         print("\nPix confirmado!")
 
-                        textoResultado = f'Pagamento confirmado no valor de {flight_valor}'
+                        print(f'Pagamento confirmado no valor de {flight_valor}')
 
-                        return textoResultado
+                        return nome_titular_pix, opcao_pagamento
+                        pass
+
+                    # Caso o usuário escolha uma opção diferente das mostradas ele ficando esse case em loop
+                    case _:
+                        print('>' * 30)
+                        print("Opção de pagamento inválida. Por favor, escolha novamente.")
+                        opcao_pagamento = int(input(f'1 - Cartão\n'
+                                                    f'2 - Pix\n'
+                                                    f'Opção: '))
 
             except ValueError as error:
                 print(f'Siga as instruções corretamente!\n'
