@@ -85,7 +85,7 @@ class VoosOperações:
                         print(f'Chave aleatória para o pagamento: {sequencia_aleatoria}')
                         nome_titular_pix = str(input('Digite seu nome: '))
                         # Essa parte do código foi feita apenas para simular o processo do pix
-                        for _ in range(3):
+                        for _ in range(2):
                             print(".", end="", flush=True)  # Imprime um ponto sem nova linha
                             time.sleep(1)  # Pausa por 1 segundo
                         print("\nPix confirmado!")

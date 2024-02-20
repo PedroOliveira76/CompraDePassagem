@@ -1,8 +1,9 @@
+from CompraDePassagem.Viajens.Classes.Cancelar_compra import Cancelar_compra
 from CompraDePassagem.Viajens.Classes.Lista_voos import VoosOperações
-
+from CompraDePassagem.Viajens.Classes.Tratamento_dados import Tratamento_dados
 class OpcaoInvalidaError(Exception):
     pass
-lista_voos_cliente = []
+
 class Menu:
     def mostrar_tela(self):
         while True:
@@ -23,14 +24,19 @@ class Menu:
                 match opcao:
                     case 1:
                         resultado = VoosOperações.escolherVoo()
-                        lista_voos_cliente.append(resultado)
+                        tratarDado = Tratamento_dados(resultado)
+                        tratarDado.tratar_lista_voo()
                         pass
+
                     case 2:
+                        cancelador = Cancelar_compra(resultado)
+                        cancelador.cancelar_passagem()
                         pass
+
                     case 3:
                         pass
+
                     case 4:
-                        print(lista_voos_cliente)
                         pass
                     case 5:
                         return f'Programa Finalizado'
