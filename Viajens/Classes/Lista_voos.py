@@ -39,28 +39,29 @@ class VoosOperações:
                                                         f'Opção: '))
                             print('-' * 30)
 
-                            # As informações selecionadas pelo usuário são armazenadas no dados_pagamento de acordo com o retorno
+                            # As informações selecionadas pelo usuário são armazenadas em lista_dados de acordo com o retorno
                             # da função formaPagamento()
-                            dados_pagamento = VoosOperações.formaPagamento(opcao_pagamento, flights_data[opcao - 1]["Valor"])
+                            nome_coprador, tipo_pagamento = VoosOperações.formaPagamento(opcao_pagamento, flights_data[opcao - 1]["Valor"])
 
-                            lista_dados = (flights_data[opcao - 1]["country"],
+                            #armazena todos os dados necessário na lista
+                            lista_dados = (nome_coprador,tipo_pagamento,flights_data[opcao - 1]["country"],
                                                    flights_data[opcao - 1]["departure_time"],
                                                    flights_data[opcao - 1]["Valor"])
 
                             print('-' * 30)
-                            return lista_dados, dados_pagamento # Retorna os dados do voo selecionado
+                            return lista_dados # Retorna os dados do voo selecionado
 
                         except ValueError as error:
                             print(f'Error: {error}'
-                                  f'Escolha um número!')
+                                  f'Ocorreu um error, tente novamente!')
 
                 else:
                     print("Opção inválida. Escolha um número entre 1 e", len(flights_data))
                     print('>' * 30)
 
             except ValueError as error:
-                print(f'Error: {error} \n'
-                      f'Escolha um número!')
+                print(f'Ocorreu um erro tente novamente'
+                      f'Error: {error} \n')
 
     @staticmethod
     def formaPagamento(opcao_pagamento, flight_valor):

@@ -1,6 +1,7 @@
 from CompraDePassagem.Viajens.Classes.Cancelar_compra import Cancelar_compra
 from CompraDePassagem.Viajens.Classes.Lista_voos import VoosOperações
-from CompraDePassagem.Viajens.Classes.Tratamento_dados import Tratamento_dados
+from CompraDePassagem.Viajens.Classes.DadosPrintPassagem import DadosPassagemPrinter
+lista_dados = []
 class OpcaoInvalidaError(Exception):
     pass
 
@@ -24,12 +25,11 @@ class Menu:
                 match opcao:
                     case 1:
                         resultado = VoosOperações.escolherVoo()
-                        tratarDado = Tratamento_dados(resultado)
-                        tratarDado.tratar_lista_voo()
+                        lista_dados.append(resultado)
                         pass
 
                     case 2:
-                        cancelador = Cancelar_compra(resultado)
+                        cancelador = Cancelar_compra(lista_dados)
                         cancelador.cancelar_passagem()
                         pass
 
@@ -37,7 +37,9 @@ class Menu:
                         pass
 
                     case 4:
-                        pass
+                        exibirPassagens = DadosPassagemPrinter(lista_dados)
+                        exibirPassagens.imprimir_dados_passagem()
+
                     case 5:
                         return f'Programa Finalizado'
 
