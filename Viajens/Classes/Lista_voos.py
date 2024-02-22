@@ -80,21 +80,25 @@ class VoosOperações:
                         return nome_titular, opcao_pagamento
 
                     case 2:
+                        #Script para gerar um chave aleatória sem restrinções de padrão
                         sequencia_aleatoria = ''.join(
                             random.choice(string.ascii_letters + string.digits + string.punctuation) for _ in range(10))
 
                         print(f'Chave aleatória para o pagamento: {sequencia_aleatoria}')
                         nome_titular_pix = str(input('Digite seu nome: '))
-                        # Essa parte do código foi feita apenas para simular o processo do pix
-                        for _ in range(2):
-                            print(".", end="", flush=True)  # Imprime um ponto sem nova linha
-                            time.sleep(1)  # Pausa por 1 segundo
+                        # Essa parte do código foi feita apenas para simular o processamento do pix
+                        for _ in range(3):
+                            try:
+                                print(".", end="", flush=True)  # Imprime um ponto sem nova linha
+                                time.sleep(0.2)  # Pausa por 1 segundo
+                            except ValueError:
+                                pass
+
                         print("\nPix confirmado!")
 
                         print(f'Pagamento confirmado no valor de {flight_valor}')
 
                         return nome_titular_pix, opcao_pagamento
-                        pass
 
                     # Caso o usuário escolha uma opção diferente das mostradas ele ficando esse case em loop
                     case _:

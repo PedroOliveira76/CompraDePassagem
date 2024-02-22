@@ -26,15 +26,21 @@ class Menu:
                     case 1:
                         resultado = VoosOperações.escolherVoo()
                         lista_dados.append(resultado)
-                        pass
 
                     case 2:
                         cancelador = Cancelar_compra(lista_dados)
                         cancelador.cancelar_passagem()
-                        pass
 
                     case 3:
-                        pass
+                        print(f'Política de Reembolso: \n\n'
+                              f'1. Reembolso para Pagamentos com Cartão: \n'
+                              f'- O reembolso será processado de volta para o mesmo cartão utilizado na compra.\n'
+                              f'- Tempo de processamento: 5-10 dias úteis.\n'
+                              f'- Valor reembolsado: mesmo valor pago na compra, menos taxas de processamento.\n\n'
+                              f'2. Reembolso para Pagamentos com Pix:\n'
+                              f'- O reembolso será processado de volta para a conta bancária do cliente.\n'
+                              f'- Tempo de processamento: geralmente em minutos a horas.\n'
+                              f'- Valor reembolsado: mesmo valor pago na compra, sem taxas adicionais.\n')
 
                     case 4:
                         exibirPassagens = DadosPassagemPrinter(lista_dados)
@@ -48,7 +54,3 @@ class Menu:
             except OpcaoInvalidaError as error:
                 print(f'Erro: {error}')
 
-
-if __name__ == '__main__':
-    testeMain = Menu()
-    testeMain.mostrar_tela()
